@@ -54,9 +54,9 @@ GQLSSchemaNodeTest243 >> testFailValidateInterfaceTypeExtension_amp [
 						}
 						extend interface OtherInterface{
 							id: String
-						}';
-		assert: schema query isNil;
-		parseSchema:
+						}'.
+	self	assert: schema query isNil.
+	self parseSchema:
 			'
 						schema { 
 							query: Query
@@ -559,9 +559,9 @@ GQLSSchemaNodeTest243 >> testFailValidateObjectTypeExtension_amp_A27 [
 	aCollection := schema
 		validate;
 		dictFieldsResolvers.
-	schema := self
-		assert:
-			aCollection class equals: Dictionary;
+	self assert: aCollection class equals: Dictionary.
+	self assert: aCollection size equals: 0.
+	self
 		parseSchema:
 			'
 						schema { 
@@ -948,7 +948,7 @@ GQLSSchemaNodeTest243 >> testValidateSimpleClassWithNamedType_amp [
 "
 
 	<madeBySmallAmp>
-	self
+	schema := self
 		parseSchema:
 			'type A {
 					id: InternalCount
@@ -957,6 +957,18 @@ GQLSSchemaNodeTest243 >> testValidateSimpleClassWithNamedType_amp [
 					idA: ID_A
 					values: [ Int ! ]
 					params (name: StringName, prom: FloatingPoint, key: String): [Int]
-				}';
-		assert: schema directives class equals: Array
+				}'.
+	self assert: schema directives class equals: Array.
+	self assert: schema class equals: GQLSSchemaNode.
+	self assert: schema directives class equals: Array.
+	self assert: schema directives size equals: 2.
+	self
+		assert: (schema directives at: 1) class
+		equals: GQLSDirectiveNode.
+	self assert: (schema directives at: 1) name equals: 'include'.
+	self
+		assert: (schema directives at: 2) class
+		equals: GQLSDirectiveNode.
+	self assert: (schema directives at: 2) name equals: 'skip'.
+	SmallAmp assertionsFor: schema.
 ]

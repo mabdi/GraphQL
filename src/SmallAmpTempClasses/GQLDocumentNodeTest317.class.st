@@ -24,7 +24,7 @@ GQLDocumentNodeTest317 >> testComposeRequestIncludeWithTwoDirective_amp_L3 [
 			name
 		}
 	}' ]
-		raise: Error
+		raise: Error "Error: only integers should be used as indices"
 ]
 
 { #category : #'as yet unclassified' }
